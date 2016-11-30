@@ -12,10 +12,17 @@ var Operation = mongoose.model('Operation', operationSchema);
 module.exports = {
 
   saveOperation : function(operation) {
-      var op = new Operation(operation);
-      op.save(function(err, result){
-        if(err) {console.dir(err); }
-        console.log('written ',result)
-      })
+    var op = new Operation(operation);
+    op.save(function(err, result){
+      if(err) {console.dir(err); }
+      console.log('written ',result)
+    })
+  },
+
+  findAll : function(error, success) {
+    Operation.find(function(err, operations){
+      if (err) return console.error(err);
+      success(operations);
+    }); 
   }
 }

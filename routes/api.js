@@ -12,4 +12,10 @@ router.post('/spending', function(req, res, next) {
   res.redirect('/');
 });
 
+router.get('/operation', function(req,res){
+  var operations = dao.findAll({}, function(operations){
+    res.send(operations);  
+  });
+});
+
 module.exports = router;
