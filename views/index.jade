@@ -3,3 +3,14 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+
+  h2= Spending
+  form(name="add-spending", method="post", action="/api/spending")
+    div.input
+      span.label Amount
+      input(type="number", name="amount")
+    div.input
+      span.label Tags
+      input(type="tags", name="tags")
+    div.actions
+      input(type="submit", value="add")
