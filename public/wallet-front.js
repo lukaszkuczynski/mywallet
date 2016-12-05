@@ -1,3 +1,4 @@
+// credits to https://gist.github.com/bergie/2836052
 var models = {};
 
 models.Operation = Backbone.Model.extend({

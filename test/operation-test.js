@@ -9,3 +9,12 @@ describe('#operations', function(){
     spending.op_type.should.equal('spending');
   });
 })
+
+describe('#balance', function() {
+  it('given spending returns balance substracted', function() {
+    var spending = operations.createSpending(10);
+    var balance = operations.createInitialBalance(50);
+    var newBalance = operations.processOperation(balance, spending);    
+    newBalance.amount.should.equal(40);
+  });
+})
