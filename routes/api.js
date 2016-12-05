@@ -9,12 +9,24 @@ router.post('/spending', function(req, res, next) {
   var spending = operations.createSpending(body.amount);
   console.log('ready to write spending ',spending);
   dao.saveOperation(spending);
-  res.redirect('/');
+  dao.findLastBalance({}, function(lastBalance){
+    var balance = operations.processOperation(operation, lastBalance);
+    dao.saveBalance(balance);
+    res.redirect('/');
+  });
+
 });
 
 router.get('/operation', function(req,res){
-  var operations = dao.findAll({}, function(operations){
+  dao.findAll({}, function(operations){
     res.send(operations);  
+  });
+});
+
+
+router.get('/balance/last', function(req,res){
+  dao.findLastBalance({}, function(balance){
+    res.send(balance);  
   });
 });
 

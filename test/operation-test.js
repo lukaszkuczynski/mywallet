@@ -14,7 +14,7 @@ describe('#balance', function() {
   it('given spending returns balance substracted', function() {
     var spending = operations.createSpending(10);
     var balance = operations.createInitialBalance(50);
-    var newBalance = operations.processOperation(balance, spending);    
+    var newBalance = operations.processOperation(spending, balance);    
     newBalance.amount.should.equal(40);
   });
 })

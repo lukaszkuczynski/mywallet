@@ -17,7 +17,7 @@ module.exports = {
     return balance;
   },
 
-  processOperation : function(balance, operation) {
+  processOperation : function(operation, balance) {
     var amount_to_add = 0;
     if (operation.op_type == 'spending') {
         amount_to_add = -1 * operation.amount        
