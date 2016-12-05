@@ -4,7 +4,11 @@ block content
   h1= title
   p Welcome to #{title}
 
-  h2= Spending
+  h2 Balance
+  p You have 
+    span#balance ?  
+
+  h2 Spending
   form(name="add-spending", method="post", action="/api/spending")
     div.input
       span.label Amount
@@ -16,7 +20,7 @@ block content
       input(type="submit", value="add")
 
 
-  h2= List
+  h2 List
   table
     thead
       tr

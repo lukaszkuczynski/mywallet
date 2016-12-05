@@ -9,6 +9,10 @@ models.Operations = Backbone.Collection.extend({
   url: '/api/operation'
 });
 
+models.Balance = Backbone.Model.extend({  
+  url: '/api/balance/last'
+});
+
 
 var views = {};
 
@@ -51,13 +55,11 @@ views.Operations = Backbone.View.extend({
   },
 
   render: function() {
-    console.log('render')
     var element = jQuery(this.el);
     // Clear potential old entries first
     element.empty();
     // Go through the collection items
     this.collection.forEach(function(item) {
-      console.log('collection item ',item)
       var itemView = new views.OperationItem({
         model: item
       });
@@ -66,6 +68,24 @@ views.Operations = Backbone.View.extend({
       element.append(itemView.render().el);
     });
 
+    return this;
+  }
+});
+
+views.Balance = Backbone.View.extend({
+  id: 'balance',
+  el: 'span',
+
+  initialize: function(options) {
+    _.bindAll(this, 'render');
+    // If the model changes we need to re-render
+    this.model.bind('change', this.render);
+  },
+
+  render: function() {
+    var am = this.model.get('amount');
+    console.log(am);
+    jQuery(this.el).text(am);
     return this;
   }
 });
@@ -81,7 +101,12 @@ var Router = Backbone.Router.extend({
       collection: operations
     });
     view.render();
+    var balance = new models.Balance();
+    var viewBalance = new views.Balance({
+      model: balance
+    })
     operations.fetch();
+    balance.fetch();
   }
 });
 
